@@ -49,5 +49,10 @@
     },
     "m_Filter": "",
     "m_FilterIsRegularExpression": false,
-    "m_SymbolPaths": []
+    "m_SymbolPaths": [
+        {
+            "Name": "D:/Programs/Unity/2019.4.13f1",
+            "Enabled": true
+        }
+    ]
 }
