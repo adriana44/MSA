@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -14,5 +14,14 @@ public class Menu : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnApplicationQuit()
+    {
+
+    }
+    public void quit()
+    {
+        Application.Quit();
     }
 }
