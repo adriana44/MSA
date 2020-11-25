@@ -10,17 +10,29 @@ public class Tile
 
 public class GamePlay : MonoBehaviour
 {
+    public static GamePlay Instance { set; get; } //ADRIANA
     private const int X = 12;
     private const int Y = 6;
+    private const int X_ENEMY = 11; //ADRIANA
 
     public Tile[,] Grid { set; get; }
     public GameObject[] UnitPrefab;
+    public GameObject[] EnemyPrefab; //ADRIANA
+    public List<BaseEnemy> activeEnemies = new List<BaseEnemy>(); //ADRIANA
     private int selectedUnitIndex;
     private bool isSelectingUnit;
     // Start is called before the first frame update
     private void Start()
     {
-        Grid = new Tile[X, Y];       
+        Grid = new Tile[X, Y];
+        for (int i = 0; i < X; i++)
+        {
+            for (int j = 0; j < Y; j++)
+            {
+                Grid[i, j] = new Tile() { Occupied = false, Position = new Vector2(i, j), Unit = null }; 
+            }
+        }
+
     }
 
    
@@ -30,18 +42,21 @@ public class GamePlay : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 0f, LayerMask.GetMask("GameGrid")))
+            Ray ray= Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 30.0f, LayerMask.GetMask("GameGrid")))
             {
                 int x = (int)hit.point.x;
                 int y = (int)hit.point.z;
                 Debug.Log(hit.point);
+
                 if (isSelectingUnit)
                 {
                     Tile t = SelectGridTile(x, y);
                     if (!t.Occupied)
                     {
                         GameObject go = Instantiate(UnitPrefab[selectedUnitIndex]) as GameObject;
-                        go.transform.position = (Vector3.right * x) + (Vector3.forward * y);
+                        go.transform.position = (Vector3.right * x) + (Vector3.forward * y)+
+                            (Vector3.right * 0.5f) + (Vector3.forward * 0.5f);
                         t.Occupied = true;
                         t.Unit = go.GetComponent<Units>();
 
@@ -56,6 +71,10 @@ public class GamePlay : MonoBehaviour
                 }
 
             }
+        }
+        if (Input.GetKeyDown(KeyCode.T)) //ADRIANA - asta ii doar asa sa vedem ca mere
+        {
+            SpwanEnemy(0, 2);
         }
         for (int i = 0; i <= X; i++)
         {
@@ -78,4 +97,23 @@ public class GamePlay : MonoBehaviour
         isSelectingUnit = true;
         selectedUnitIndex = index;
     }
+    public void SpwanEnemy(int prefabIndex, int lane) //ADRIANA
+    {
+        GameObject go = Instantiate(EnemyPrefab[prefabIndex]) as GameObject;
+        go.transform.position = new Vector3(X_ENEMY, 0.5f, 1 * lane + 0.5f);
+
+        BaseEnemy e = go.GetComponent<BaseEnemy>();
+        e.Position = new Vector2(X_ENEMY, lane);
+        activeEnemies.Add(e);
+    }
+
+    public void DeleteEnemy(BaseEnemy e) //ADRIANA
+    {
+        activeEnemies.Remove(e);
+        Destroy(e.gameObject);
+
+        // Create Particle effect ??
+        // Play sound effect ?? 
+    }
+
 }
