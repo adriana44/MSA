@@ -72,9 +72,9 @@ public class GamePlay : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.T)) //ADRIANA - asta ii doar asa sa vedem ca mere
+        if (Input.GetKeyDown(KeyCode.T)) //ADRIANA - asta ii doar ca sa testam enemies
         {
-            SpwanEnemy(0, 2);
+            SpawnEnemy(0, 2);
         }
         for (int i = 0; i <= X; i++)
         {
@@ -97,7 +97,7 @@ public class GamePlay : MonoBehaviour
         isSelectingUnit = true;
         selectedUnitIndex = index;
     }
-    public void SpwanEnemy(int prefabIndex, int lane) //ADRIANA
+    public void SpawnEnemy(int prefabIndex, int lane) //ADRIANA
     {
         GameObject go = Instantiate(EnemyPrefab[prefabIndex]) as GameObject;
         go.transform.position = new Vector3(X_ENEMY, 0.5f, 1 * lane + 0.5f);

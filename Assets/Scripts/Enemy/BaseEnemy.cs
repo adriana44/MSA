@@ -36,7 +36,7 @@ public class BaseEnemy : MonoBehaviour
         
         if(desiredPosition.x < 1)
         {
-            // TODO Lose some life (?)
+            // TODO Lose some life or lose game
             Destroy(gameObject);
             return;
         }
