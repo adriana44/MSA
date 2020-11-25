@@ -4,30 +4,40 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-// this is trash and we don't use it yet
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance{set; get;}
+
+    // UI stuff
     public Text currentLevelIndex;
     public Text goldAmountText;
-    public GameObject unitContainer;
+    public GameObject UnitContainer;
+    public GameObject LifeContainer;
 
     private Level currentLevel;
-    private int gold;
+    public int Gold{set; get;}
+    public int Life{set; get;}
 
     private void Start()
     {
+        Instance = this;
+        Life = 5;
+
         //currentLevel = DataHelper.Instance.Levels[DataHelper.Instance.CurrentLevel];
-        gold = currentLevel.StartingGold;
+        Gold = currentLevel.StartingGold;
 
         // UI
-        currentLevelIndex.text = "Current Level: " + DataHelper.Instance.CurrentLevel.ToString();
+        //currentLevelIndex.text = "Current Level: " + DataHelper.Instance.CurrentLevel.ToString();
+        
+        UnlockUnits();
         UpdateGoldText();
+        UpdateLivesUI();
     }
 
     private void UnlockUnits()
     {
         int i = 0;
-        foreach(Transform u in unitContainer.transform)
+        foreach(Transform u in UnitContainer.transform)
         {
             bool activeButton = ((currentLevel.UnlockedUnits) & (1<<i)) != 0;
 
@@ -42,7 +52,38 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGoldText()
     {
-        goldAmountText.text = gold.ToString();
+        goldAmountText.text = Gold.ToString();
+    }
 
+    public void UpdateLivesUI()
+    {
+        int i = 0;
+        foreach(Transform t in LifeContainer.transform)
+        {
+            if(Life-1 < i)
+            {
+                t.GetComponent<Image>().color = new Color32(255, 255, 255, 50);
+            }
+            
+            if(Life <= 0)
+            {
+                Death();
+                return;
+            }
+
+            i++;
+        }
+    }
+
+    public void RemoveLife()
+    {
+        Life--;
+        UpdateLivesUI();
+        // Add sound effect ?
+    }
+
+    public void Death()
+    {
+        SceneManager.LoadScene("Main"); // to be replaced with Lose Scene
     }
 }

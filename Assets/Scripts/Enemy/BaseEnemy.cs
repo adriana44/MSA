@@ -36,7 +36,7 @@ public class BaseEnemy : MonoBehaviour
         
         if(desiredPosition.x < 1)
         {
-            // TODO Lose some life or lose game
+            GameManager.Instance.RemoveLife();
             Destroy(gameObject);
             return;
         }

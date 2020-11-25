@@ -11,24 +11,24 @@ public class Tile
 
 public class GamePlay : MonoBehaviour
 {
-    public static GamePlay Instance { set; get; } //ADRIANA
+    public static GamePlay Instance { set; get; }
     
     private const int X_TILES = 12;
     private const int Y_TILES = 6;
-    private const int X_ENEMY = 11; //ADRIANA
+    private const int X_ENEMY = 11;
 
     public Tile[,] Grid { set; get; }
     public GameObject[] UnitPrefab;
-    public GameObject[] EnemyPrefab; //ADRIANA
-    public List<BaseEnemy> activeEnemies = new List<BaseEnemy>(); //ADRIANA
+    public GameObject[] EnemyPrefab;
+    public List<BaseEnemy> activeEnemies = new List<BaseEnemy>();
 
     private int selectedUnitIndex;
     private bool isSelectingUnit;
 
-    // Start is called before the first frame update
     private void Start()
     {
         Instance = this;
+
         Grid = new Tile[X_TILES, Y_TILES];
 
         for (int i = 0; i < X_TILES; i++)
@@ -41,8 +41,6 @@ public class GamePlay : MonoBehaviour
 
     }
 
-   
-    // Update is called once per frame
     private void Update()
     {
         if(Input.GetMouseButtonDown(0))
