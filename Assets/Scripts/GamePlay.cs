@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Tile
 {
     public bool Occupied { set; get; }
@@ -11,6 +12,7 @@ public class Tile
 public class GamePlay : MonoBehaviour
 {
     public static GamePlay Instance { set; get; } //ADRIANA
+    
     private const int X = 12;
     private const int Y = 6;
     private const int X_ENEMY = 11; //ADRIANA
@@ -19,17 +21,21 @@ public class GamePlay : MonoBehaviour
     public GameObject[] UnitPrefab;
     public GameObject[] EnemyPrefab; //ADRIANA
     public List<BaseEnemy> activeEnemies = new List<BaseEnemy>(); //ADRIANA
+
     private int selectedUnitIndex;
     private bool isSelectingUnit;
+
     // Start is called before the first frame update
     private void Start()
     {
+        Instance = this;
         Grid = new Tile[X, Y];
+
         for (int i = 0; i < X; i++)
         {
             for (int j = 0; j < Y; j++)
             {
-                Grid[i, j] = new Tile() { Occupied = false, Position = new Vector2(i, j), Unit = null }; 
+                Grid[i, j] = new Tile() { Occupied = false, Position = new Vector2(i, j), Unit = null };
             }
         }
 
