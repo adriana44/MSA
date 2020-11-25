@@ -13,8 +13,8 @@ public class GamePlay : MonoBehaviour
 {
     public static GamePlay Instance { set; get; } //ADRIANA
     
-    private const int X = 12;
-    private const int Y = 6;
+    private const int X_TILES = 12;
+    private const int Y_TILES = 6;
     private const int X_ENEMY = 11; //ADRIANA
 
     public Tile[,] Grid { set; get; }
@@ -29,11 +29,11 @@ public class GamePlay : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        Grid = new Tile[X, Y];
+        Grid = new Tile[X_TILES, Y_TILES];
 
-        for (int i = 0; i < X; i++)
+        for (int i = 0; i < X_TILES; i++)
         {
-            for (int j = 0; j < Y; j++)
+            for (int j = 0; j < Y_TILES; j++)
             {
                 Grid[i, j] = new Tile() { Occupied = false, Position = new Vector2(i, j), Unit = null };
             }
@@ -82,14 +82,14 @@ public class GamePlay : MonoBehaviour
         {
             SpawnEnemy(0, 2);
         }
-        for (int i = 0; i <= X; i++)
+        for (int i = 0; i <= X_TILES; i++)
         {
-            Debug.DrawLine(Vector3.right * i, Vector3.right * i+ Vector3.forward * Y);
+            Debug.DrawLine(Vector3.right * i, Vector3.right * i+ Vector3.forward * Y_TILES);
         }
 
-        for (int i = 0; i <= Y; i++)
+        for (int i = 0; i <= Y_TILES; i++)
         {
-            Debug.DrawLine(Vector3.forward * i, Vector3.forward * i + Vector3.right *X);
+            Debug.DrawLine(Vector3.forward * i, Vector3.forward * i + Vector3.right *X_TILES);
         }
     }
 
@@ -103,7 +103,9 @@ public class GamePlay : MonoBehaviour
         isSelectingUnit = true;
         selectedUnitIndex = index;
     }
-    public void SpawnEnemy(int prefabIndex, int lane) //ADRIANA
+
+    // Enemy stuff:
+    public void SpawnEnemy(int prefabIndex, int lane)
     {
         GameObject go = Instantiate(EnemyPrefab[prefabIndex]) as GameObject;
         go.transform.position = new Vector3(X_ENEMY, 0.5f, 1 * lane + 0.5f);
@@ -113,13 +115,13 @@ public class GamePlay : MonoBehaviour
         activeEnemies.Add(e);
     }
 
-    public void DeleteEnemy(BaseEnemy e) //ADRIANA
+    public void DeleteEnemy(BaseEnemy e)
     {
         activeEnemies.Remove(e);
         Destroy(e.gameObject);
 
-        // Create Particle effect ??
-        // Play sound effect ?? 
+        // Create some sort of effect?
+        // Play sound effect?
     }
 
 }

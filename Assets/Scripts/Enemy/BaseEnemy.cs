@@ -56,11 +56,8 @@ public class BaseEnemy : MonoBehaviour
     {
         if(Time.time - lastAttack > attackCooldown)
         {
-            GamePlay.Instance.SelectGridTile((int)desiredPosition.x, (int)desiredPosition.y).Unit.TakeDamage(damage);
+            GamePlay.Instance.SelectGridTile((int)desiredPosition.x-1, (int)desiredPosition.y).Unit.TakeDamage(damage);
             lastAttack = Time.time;
         }
-
     }
-
-    
 }
