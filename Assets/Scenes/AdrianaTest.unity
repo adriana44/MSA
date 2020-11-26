@@ -166,9 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942653f1a6241274a98156d208a76f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Levels:
-  - UnlockedUnits: 0
-    StartingGold: 100
+  LevelData: {fileID: 4900000, guid: 187df55e1b4f0fc488fa258c8dad6093, type: 3}
 --- !u!1001 &8866180348866441429
 PrefabInstance:
   m_ObjectHideFlags: 0

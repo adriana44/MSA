@@ -8,8 +8,9 @@ public class DataHelper : MonoBehaviour
     public static DataHelper Instance { set; get; }
     public static BitArray UnlockedLevels { set; get; }
     public int CurrentLevel { set; get; }
+    public TextAsset LevelData;
 
-    public List<Level> Levels; // leave this here ms pwp
+    public List<Level> Levels { set; get; } // leave this here ms pwp
 
     void Start()
     {
@@ -17,7 +18,7 @@ public class DataHelper : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
         Load();
-
+        ReadLevelData();
         SceneManager.LoadScene(1); // hardcoded; to be changed
         //CurrentLevel = 1; // hardcoded; to be changed
     }
@@ -47,5 +48,14 @@ public class DataHelper : MonoBehaviour
         }
 
 
+    }
+
+    private void ReadLevelData()
+    {
+        Levels = new List<Level>();
+
+        string[] allLevels = LevelData.text.Split('%');
+
+        Debug.Log(allLevels[0]);
     }
 }
