@@ -6,31 +6,46 @@ using UnityEngine.SceneManagement;
 public class DataHelper : MonoBehaviour
 {
     public static DataHelper Instance { set; get; }
-    public static BitArray Levels { set; get; }
+    public static BitArray UnlockedLevels { set; get; }
     public int CurrentLevel { set; get; }
 
-    //public List<Level> Levels; // leave this here ms pwp
+    public List<Level> Levels; // leave this here ms pwp
+
 
     void Start()
     {
         Instance = this;
+        
         DontDestroyOnLoad(gameObject);
+        Load();
 
-        Update();
-
-        SceneManager.LoadScene("Game"); // Load Main instead??? we don't have a "Game" scene lol
+        SceneManager.LoadScene(1);
     }
 
     public void Save()
     {
         string save = "";
 
-        for (int i = 0; i < Levels.Count; ++i)
-            save += Levels.Get(i).ToString();
+        for (int i = 0; i < UnlockedLevels.Count; ++i)
+            save += UnlockedLevels.Get(i).ToString();
+
+        PlayerPrefs.SetString("save", save);
     }
 
-    void Update()
+    public void Load()
     {
+        string load = PlayerPrefs.GetString("save");
+
+        int i = 0;
+        foreach (char c in load)
+        {
+            if (c == '0')
+                UnlockedLevels.Set(i, false);
+            else
+                UnlockedLevels.Set(i, true);
+            i++;
+        }
+
 
     }
 }

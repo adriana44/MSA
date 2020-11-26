@@ -5,9 +5,11 @@ using UnityEngine;
 // produces gold; does not attack
 public class Unit1 : BaseUnit
 {
+    public int goldGain = 10;
     public override void Attack()
     {
-        Debug.Log("unit1 attack (it doesn't deal damage");
-        //lastAttack = Time.time;
+        GameManager.Instance.Gold += goldGain;
+        GameManager.Instance.UpdateGoldText();
+        lastAttack = Time.time;
     }
 }

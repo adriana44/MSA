@@ -5,10 +5,10 @@ using UnityEngine;
 public class BaseUnit : MonoBehaviour
 {
     public int goldOnDelete;
+    public int cost;
     public int hp = 3;
     public int damage = 1; // to be changed
     public float attackCooldown = 1.5f; // to be changed
-
     public float lastAttack;
 
     public virtual void Attack(){} // will be different for each Unit

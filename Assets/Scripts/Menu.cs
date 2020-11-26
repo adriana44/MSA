@@ -15,12 +15,21 @@ public class Menu : MonoBehaviour
     {
         
     }
+    public void UnlockedLevels()
+    {
 
+    }
+    public void ToGame(int levelIndex)
+    {
+        //DataHelper.Instance.CurrentLevel = levelIndex;
+        //SceneManager.LoadScene("Levels");
+        SceneManager.LoadScene("GamePlay");
+    }
     public void OnApplicationQuit()
     {
 
     }
-    public void quit()
+    public void Quit()
     {
         Application.Quit();
     }

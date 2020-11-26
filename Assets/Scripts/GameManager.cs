@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
         Life = 5;
 
-        //currentLevel = DataHelper.Instance.Levels[DataHelper.Instance.CurrentLevel];
+        currentLevel = DataHelper.Instance.Levels[DataHelper.Instance.CurrentLevel];
         Gold = currentLevel.StartingGold;
 
         // UI
-        //currentLevelIndex.text = "Current Level: " + DataHelper.Instance.CurrentLevel.ToString();
+        currentLevelIndex.text = "Current Level: " + DataHelper.Instance.CurrentLevel.ToString();
         
         UnlockUnits();
         UpdateGoldText();
@@ -36,14 +36,14 @@ public class GameManager : MonoBehaviour
 
     private void UnlockUnits()
     {
-        int i = 0;
+        /*int i = 0;
         foreach(Transform u in UnitContainer.transform)
         {
             bool activeButton = ((currentLevel.UnlockedUnits) & (1<<i)) != 0;
 
             //u.GetComponent<Button>().interactable = false;
             i++;
-        }
+        }*/ //nu ii necesar
     }
     public void ToMenu()
     {
@@ -84,6 +84,6 @@ public class GameManager : MonoBehaviour
 
     public void Death()
     {
-        SceneManager.LoadScene("Main"); // to be replaced with Lose Scene
+        SceneManager.LoadScene("Menu"); // to be replaced with Lose Scene
     }
 }

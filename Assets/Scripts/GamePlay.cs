@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tile
 {
@@ -15,7 +16,7 @@ public class GamePlay : MonoBehaviour
     
     private const int X_TILES = 12;
     private const int Y_TILES = 6;
-    private const int X_ENEMY = 11;
+    private const int X_ENEMY = 13;
 
     public Tile[,] Grid { set; get; }
     public GameObject[] UnitPrefab;
@@ -24,6 +25,7 @@ public class GamePlay : MonoBehaviour
 
     private int selectedUnitIndex;
     private bool isSelectingUnit;
+    private bool isDeletingUnit;
 
     private void Start()
     {
@@ -53,12 +55,25 @@ public class GamePlay : MonoBehaviour
                 int y = (int)hit.point.z;
                 Debug.Log(hit.point);
 
+                if (isDeletingUnit)
+                {
+                    Tile t = SelectGridTile(x, y);
+                    if (t.Occupied)
+                    {
+                        GameManager.Instance.Gold += t.Unit.goldOnDelete;
+                        GameManager.Instance.UpdateGoldText();
+                        Destroy(t.Unit.gameObject);
+                        t.Occupied = false;
+                    }
+
+                    isDeletingUnit = false;
+                }
                 if (isSelectingUnit)
                 {
                     Tile t = SelectGridTile(x, y);
                     if (!t.Occupied)
                     {
-                        GameObject go = Instantiate(UnitPrefab[selectedUnitIndex]) as GameObject;
+                        GameObject go = Instantiate(UnitPrefab[selectedUnitIndex]);
                         go.transform.position = (Vector3.right * x) + (Vector3.forward * y)+
                             (Vector3.right * 0.5f) + (Vector3.forward * 0.5f);
                         t.Occupied = true;
@@ -97,15 +112,19 @@ public class GamePlay : MonoBehaviour
     }
 
     public void SelectUnit(int index)
-    {
+    {       
         isSelectingUnit = true;
         selectedUnitIndex = index;
+    }
+    public void SelectDelete()
+    {
+        isDeletingUnit = true;
     }
 
     // Enemy stuff:
     public void SpawnEnemy(int prefabIndex, int lane)
     {
-        GameObject go = Instantiate(EnemyPrefab[prefabIndex]) as GameObject;
+        GameObject go = Instantiate(EnemyPrefab[prefabIndex]);
         go.transform.position = new Vector3(X_ENEMY, 0.5f, 1 * lane + 0.5f);
 
         BaseEnemy e = go.GetComponent<BaseEnemy>();
