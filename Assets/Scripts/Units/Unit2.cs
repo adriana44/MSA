@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Unit2 : BaseUnit
 {
+    public void Start()
+    {
+        cost = 20;
+        damage = 1;
+    }
+
     public override void Attack()
     {
         BaseEnemy enemy = null;

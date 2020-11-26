@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// unused trash
+//unused trash
 [System.Serializable]
 public struct Level
 {

@@ -40,7 +40,6 @@ public class GamePlay : MonoBehaviour
                 Grid[i, j] = new Tile() { Occupied = false, Position = new Vector2(i, j), Unit = null };
             }
         }
-
     }
 
     private void Update()
@@ -112,9 +111,25 @@ public class GamePlay : MonoBehaviour
     }
 
     public void SelectUnit(int index)
-    {       
-        isSelectingUnit = true;
-        selectedUnitIndex = index;
+    { 
+        //Debug.Log("index" + index);
+        int cost = UnitPrefab[index].GetComponent<BaseUnit>().cost;
+        //Debug.Log("cost" + cost);
+
+        if(cost <= GameManager.Instance.Gold)
+        {
+            isSelectingUnit = true;
+            selectedUnitIndex = index;
+
+            GameManager.Instance.Gold -= cost;
+            GameManager.Instance.UpdateGoldText();
+        }
+        else
+        {
+            Debug.Log("not enough gold");
+        }
+
+        
     }
     public void SelectDelete()
     {

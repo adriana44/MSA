@@ -94,10 +94,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b51926ad129fe45a7ea59920ffca53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldOnDelete: 10
-  cost: 20
+  goldOnDelete: 5
+  cost: 10
   hp: 3
-  damage: 1
+  damage: 0
   attackCooldown: 15
   lastAttack: 0
   goldGain: 10

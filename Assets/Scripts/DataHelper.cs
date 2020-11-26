@@ -9,8 +9,7 @@ public class DataHelper : MonoBehaviour
     public static BitArray UnlockedLevels { set; get; }
     public int CurrentLevel { set; get; }
 
-    public List<Level> Levels; // leave this here ms pwp
-
+    //public List<Level> Levels; // leave this here ms pwp
 
     void Start()
     {
@@ -19,7 +18,8 @@ public class DataHelper : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Load();
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1); // hardcoded; to be changed
+        CurrentLevel = 1; // hardcoded; to be changed
     }
 
     public void Save()

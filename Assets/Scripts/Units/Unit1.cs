@@ -6,6 +6,13 @@ using UnityEngine;
 public class Unit1 : BaseUnit
 {
     public int goldGain = 10;
+
+    public void Start()
+    {
+        cost = 10;
+        damage = 0;
+    }
+
     public override void Attack()
     {
         GameManager.Instance.Gold += goldGain;
