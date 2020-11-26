@@ -23,12 +23,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
         Life = 5;
 
-        //currentLevel = DataHelper.Instance.Levels[DataHelper.Instance.CurrentLevel];
-        //Gold = currentLevel.StartingGold;
-        Gold = 40; // hardcoded; needs to be an attribute of Level
+        currentLevel = DataHelper.Instance.Levels[DataHelper.Instance.CurrentLevel];
+        Gold = currentLevel.StartingGold;
+       // Gold = 40; // hardcoded; needs to be an attribute of Level
 
         // UI
-        //currentLevelIndex.text = "Current Level: " + DataHelper.Instance.CurrentLevel.ToString();
+        currentLevelIndex.text = "Current Level: " + DataHelper.Instance.CurrentLevel.ToString();
         
         UnlockUnits();
         UpdateGoldText();
