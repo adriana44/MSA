@@ -6,7 +6,7 @@ public class Tile
 {
     public bool Occupied { set; get; }
     public Vector2 Position { set; get; }
-    public Units Unit { set; get; }
+    public BaseUnit Unit { set; get; }
 }
 
 public class GamePlay : MonoBehaviour
@@ -62,7 +62,7 @@ public class GamePlay : MonoBehaviour
                         go.transform.position = (Vector3.right * x) + (Vector3.forward * y)+
                             (Vector3.right * 0.5f) + (Vector3.forward * 0.5f);
                         t.Occupied = true;
-                        t.Unit = go.GetComponent<Units>();
+                        t.Unit = go.GetComponent<BaseUnit>();
 
                         isSelectingUnit = false;
                         selectedUnitIndex = -1;
@@ -76,7 +76,7 @@ public class GamePlay : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.T)) //ADRIANA - asta ii doar ca sa testam enemies
+        if (Input.GetKeyDown(KeyCode.T)) //asta ii doar ca sa testam enemies
         {
             SpawnEnemy(0, 2);
         }

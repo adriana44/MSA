@@ -7,6 +7,7 @@ public class BaseEnemy : MonoBehaviour
     public Vector2 Position{set;get;}
     public float attackCooldown = 1.5f;
     public int damage = 1;
+    public int hp = 3;
 
     private float lastAttack;
     private Vector2 desiredPosition;
@@ -59,5 +60,16 @@ public class BaseEnemy : MonoBehaviour
             GamePlay.Instance.SelectGridTile((int)desiredPosition.x-1, (int)desiredPosition.y).Unit.TakeDamage(damage);
             lastAttack = Time.time;
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        hp -= amount;
+
+        if(hp <= 0)
+        {
+            GamePlay.Instance.DeleteEnemy(this);
+        }
+
     }
 }
