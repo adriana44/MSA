@@ -8,9 +8,10 @@ public class DataHelper : MonoBehaviour
     public static DataHelper Instance { set; get; }
     public static BitArray UnlockedLevels { set; get; }
     public int CurrentLevel { set; get; }
+    
     public TextAsset LevelData;
 
-    public List<Level> Levels { set; get; } // leave this here ms pwp
+    public List<Level> Levels { set; get; }
 
     void Start()
     {
@@ -56,6 +57,9 @@ public class DataHelper : MonoBehaviour
 
         string[] allLevels = LevelData.text.Split('%');
 
-        Debug.Log(allLevels[0]);
+        foreach(string s in allLevels)
+        {
+            Levels.Add(new Level(s));
+        }
     }
 }

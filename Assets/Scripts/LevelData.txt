@@ -1,4 +1,4 @@
-%First Level,100	
+First Level,100,
 0,2,5,
 0,1,10,
 0,3,15,
