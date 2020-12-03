@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public struct EnemySpawn
 {
     public int index;
@@ -9,13 +8,15 @@ public struct EnemySpawn
     public float time;
 }
 
-public class Level
+public class Level 
 {
+   
     public string LevelName{set;get;}
     //public int LevelIndex{set;get;};
     public int UnlockedUnits;
     public int StartingGold;
     public List<EnemySpawn> enemies;
+
     public Level(string levelString)
     {
         enemies = new List<EnemySpawn>();
@@ -45,4 +46,5 @@ public class Level
 
         }
     }
+
 }

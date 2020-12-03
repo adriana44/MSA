@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class DataHelper : MonoBehaviour
 {
     public static DataHelper Instance { set; get; }
-    public static BitArray UnlockedLevels { set; get; }
+    public BitArray UnlockedLevels { set; get; }
     public int CurrentLevel { set; get; }
     
     public TextAsset LevelData;
@@ -18,9 +18,13 @@ public class DataHelper : MonoBehaviour
         Instance = this;
         
         DontDestroyOnLoad(gameObject);
-        Load();
         ReadLevelData();
-        SceneManager.LoadScene(1); // hardcoded; to be changed
+        UnlockedLevels = new BitArray(Levels.Count);
+
+        Load();
+        Save();
+
+        SceneManager.LoadScene("Menu"); 
         //CurrentLevel = 1; // hardcoded; to be changed
     }
 
@@ -29,7 +33,7 @@ public class DataHelper : MonoBehaviour
         string save = "";
 
         for (int i = 0; i < UnlockedLevels.Count; ++i)
-            save += UnlockedLevels.Get(i).ToString();
+            save += (UnlockedLevels.Get(i)) ? '1': '0' ; // if level is accessible
 
         PlayerPrefs.SetString("save", save);
     }
@@ -37,6 +41,9 @@ public class DataHelper : MonoBehaviour
     public void Load()
     {
         string load = PlayerPrefs.GetString("save");
+
+        if (load == "")
+            UnlockedLevels.Set(0, true);// for first load
 
         int i = 0;
         foreach (char c in load)

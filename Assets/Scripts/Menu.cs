@@ -4,26 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
     public void UnlockedLevels()
     {
 
     }
-    public void ToGame(int levelIndex)
+    public void ToGame()
     {
-        //DataHelper.Instance.CurrentLevel = levelIndex;
-        //SceneManager.LoadScene("Levels");
-        SceneManager.LoadScene("GamePlay");
+        SceneManager.LoadScene("Levels");
     }
     public void OnApplicationQuit()
     {

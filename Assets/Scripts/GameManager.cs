@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         float gameDuration =Time.time - startTime;
-        for(int i= 0;i < currentLevel.enemies.Count;i++)
+        for(int i= 0;i < currentLevel.enemies.Count;i++)// spanws units at given time
         {
             if (currentLevel.enemies[i].time < gameDuration)
             {
