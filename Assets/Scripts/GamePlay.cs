@@ -90,10 +90,10 @@ public class GamePlay : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.T)) //asta ii doar ca sa testam enemies
-        {
-            SpawnEnemy(0, 2);
-        }
+        //if (Input.GetKeyDown(KeyCode.T)) //asta ii doar ca sa testam enemies
+        //{
+        //    SpawnEnemy(0, 2);
+        //}
         for (int i = 0; i <= X_TILES; i++)
         {
             Debug.DrawLine(Vector3.right * i, Vector3.right * i+ Vector3.forward * Y_TILES);

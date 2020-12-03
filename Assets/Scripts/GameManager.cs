@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private Level currentLevel;
     public int Gold{set; get;}
     public int Life{set; get;}
-
+    private float startTime;
     private void Start()
     {
         Instance = this;
@@ -28,13 +28,27 @@ public class GameManager : MonoBehaviour
        // Gold = 40; // hardcoded; needs to be an attribute of Level
 
         // UI
-        currentLevelIndex.text = "Current Level: " + DataHelper.Instance.CurrentLevel.ToString();
+        currentLevelIndex.text = currentLevel.LevelName;
         
         UnlockUnits();
         UpdateGoldText();
         UpdateLivesUI();
-    }
 
+        startTime = Time.time;
+    }
+    private void Update()
+    {
+        float gameDuration =Time.time - startTime;
+        for(int i= 0;i < currentLevel.enemies.Count;i++)
+        {
+            if (currentLevel.enemies[i].time < gameDuration)
+            {
+                GamePlay.Instance.SpawnEnemy(currentLevel.enemies[i].index, currentLevel.enemies[i].laneIndex);
+                currentLevel.enemies.Remove(currentLevel.enemies[i]);
+            }
+        }
+
+    }
     private void UnlockUnits()
     {
         /*int i = 0;
