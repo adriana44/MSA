@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
-   
     public void UnlockedLevels()
-    {
+    { 
 
     }
     public void ToGame()

@@ -29,6 +29,12 @@ public class BaseUnit : MonoBehaviour
         {
             Tile tile = GamePlay.Instance.SelectGridTile((int)transform.position.x,
                                                       (int)transform.position.z);
+
+            //returns half of the cost of the unit when it dies
+            int cost = tile.Unit.gameObject.GetComponent<BaseUnit>().cost/2;
+            GameManager.Instance.Gold += cost;
+            GameManager.Instance.UpdateGoldText();
+
             Destroy(tile.Unit.gameObject);
             tile.Occupied = false;
         }

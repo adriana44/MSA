@@ -78,6 +78,10 @@ public class GamePlay : MonoBehaviour
                         t.Occupied = true;
                         t.Unit = go.GetComponent<BaseUnit>();
 
+                        int cost = UnitPrefab[selectedUnitIndex].GetComponent<BaseUnit>().cost;
+                        GameManager.Instance.Gold -= cost;
+                        GameManager.Instance.UpdateGoldText();
+
                         isSelectingUnit = false;
                         selectedUnitIndex = -1;
                     }
@@ -120,9 +124,6 @@ public class GamePlay : MonoBehaviour
         {
             isSelectingUnit = true;
             selectedUnitIndex = index;
-
-            GameManager.Instance.Gold -= cost;
-            GameManager.Instance.UpdateGoldText();
         }
         else
         {
@@ -152,6 +153,10 @@ public class GamePlay : MonoBehaviour
         activeEnemies.Remove(e);
         Destroy(e.gameObject);
 
+        if(activeEnemies.Count==0 && GameManager.Instance.currentLevel.enemies.Count == 0)
+        {
+                GameManager.Instance.Victory();             
+        }
         // Create some sort of effect?
         // Play sound effect?
     }

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject UnitContainer;
     public GameObject LifeContainer;
 
-    private Level currentLevel;
+    public Level currentLevel;
     public int Gold{set; get;}
     public int Life{set; get;}
     private float startTime;
@@ -100,5 +100,18 @@ public class GameManager : MonoBehaviour
     public void Death()
     {
         SceneManager.LoadScene("Menu"); // to be replaced with Lose Scene
+    }
+
+    public void Victory()
+    {
+        int nextLevel = DataHelper.Instance.CurrentLevel + 1;
+        if(nextLevel >= DataHelper.Instance.Levels.Count)
+        {
+            //done with the game
+            return;
+        }
+        DataHelper.Instance.UnlockedLevels.Set(nextLevel, true);
+        DataHelper.Instance.Save();
+        SceneManager.LoadScene("Levels");
     }
 }

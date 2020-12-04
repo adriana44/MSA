@@ -37,8 +37,8 @@ public class BaseEnemy : MonoBehaviour
         
         if(desiredPosition.x < 1)
         {
+            GamePlay.Instance.DeleteEnemy(this);
             GameManager.Instance.RemoveLife();
-            Destroy(gameObject);
             return;
         }
 
