@@ -811,7 +811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 58.64, y: -23.010002}
+  m_AnchoredPosition: {x: 58.64, y: -23.009995}
   m_SizeDelta: {x: 49.611115, y: 13.227196}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &351324871
@@ -3323,10 +3323,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: b3c22fa4619502440bcd4b527d8aa61b, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_name
-        m_Mode: 5
+      - m_Target: {fileID: 2047382814}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: Units
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

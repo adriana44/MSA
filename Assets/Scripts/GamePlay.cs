@@ -152,7 +152,7 @@ public class GamePlay : MonoBehaviour
     {
         activeEnemies.Remove(e);
         Destroy(e.gameObject);
-
+        GameManager.Instance.UpdateEnemiesText();
         if(activeEnemies.Count==0 && GameManager.Instance.currentLevel.enemies.Count == 0)
         {
                 GameManager.Instance.Victory();             

@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     // UI stuff
     public Text currentLevelIndex;
     public Text goldAmountText;
+    public Text enemies;
+    public int nrEnemiesInLevel;
+    public int nrEnemiesInLevelLeft;
     public GameObject UnitContainer;
     public GameObject LifeContainer;
 
@@ -25,21 +28,25 @@ public class GameManager : MonoBehaviour
 
         currentLevel = DataHelper.Instance.Levels[DataHelper.Instance.CurrentLevel];
         Gold = currentLevel.StartingGold;
-       // Gold = 40; // hardcoded; needs to be an attribute of Level
-
+        // Gold = 40; // hardcoded; needs to be an attribute of Level
+        nrEnemiesInLevel = currentLevel.enemies.Count+1;
+        nrEnemiesInLevelLeft = -1;
         // UI
         currentLevelIndex.text = currentLevel.LevelName;
         
         UnlockUnits();
         UpdateGoldText();
         UpdateLivesUI();
+        UpdateEnemiesText();
 
         startTime = Time.time;
+        Invoke("Hide", 2f);
+        InvokeRepeating("Timer", 1f, 1f);
     }
     private void Update()
     {
-        float gameDuration =Time.time - startTime;
-        for(int i= 0;i < currentLevel.enemies.Count;i++)// spanws units at given time
+        float gameDuration = Time.time - startTime;    
+        for (int i= 0;i < currentLevel.enemies.Count;i++)// spanws units at given time
         {
             if (currentLevel.enemies[i].time < gameDuration)
             {
@@ -70,6 +77,16 @@ public class GameManager : MonoBehaviour
         goldAmountText.text = Gold.ToString();
     }
 
+    public void Timer()
+    {       
+         Gold++;
+         goldAmountText.text = Gold.ToString();       
+    }
+    public void Hide()
+    {
+        Destroy(currentLevelIndex);
+    }
+
     public void UpdateLivesUI()
     {
         int i = 0;
@@ -89,7 +106,11 @@ public class GameManager : MonoBehaviour
             i++;
         }
     }
-
+    public void UpdateEnemiesText()
+    {
+        nrEnemiesInLevelLeft++;
+        enemies.text= nrEnemiesInLevelLeft.ToString()+"/" + nrEnemiesInLevel.ToString();
+    }
     public void RemoveLife()
     {
         Life--;

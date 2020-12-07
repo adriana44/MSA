@@ -12,6 +12,11 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Levels");
     }
+
+    public void Units()
+    {
+        SceneManager.LoadScene("Units");
+    }
     public void OnApplicationQuit()
     {
 
