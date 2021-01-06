@@ -22,11 +22,11 @@ public class GamePlay : MonoBehaviour
     public GameObject[] UnitPrefab;
     public GameObject[] EnemyPrefab;
     public List<BaseEnemy> activeEnemies = new List<BaseEnemy>();
-
+    public Text SpeedUpText;
     private int selectedUnitIndex;
     private bool isSelectingUnit;
     private bool isDeletingUnit;
-
+ 
     private void Start()
     {
         Instance = this;
@@ -68,7 +68,7 @@ public class GamePlay : MonoBehaviour
                     isDeletingUnit = false;
                 }
                 if (isSelectingUnit)
-                {
+                {                   
                     Tile t = SelectGridTile(x, y);
                     if (!t.Occupied)
                     {
@@ -90,6 +90,8 @@ public class GamePlay : MonoBehaviour
                         isSelectingUnit = false;
                         selectedUnitIndex = -1;
                     }
+                    SpeedUpText.text = "x1";
+                    Time.timeScale = 1;
                 }
 
             }
@@ -124,6 +126,7 @@ public class GamePlay : MonoBehaviour
         {
             isSelectingUnit = true;
             selectedUnitIndex = index;
+            Time.timeScale = 0.5f;
         }
         else
         {
@@ -153,7 +156,7 @@ public class GamePlay : MonoBehaviour
         activeEnemies.Remove(e);
         Destroy(e.gameObject);
         GameManager.Instance.UpdateEnemiesText();
-        if(activeEnemies.Count==0 && GameManager.Instance.currentLevel.enemies.Count == 0)
+        if(activeEnemies.Count==0)
         {
                 GameManager.Instance.Victory();             
         }

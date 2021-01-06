@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance{set; get;}
+    public static GameManager Instance { set; get; }
 
     // UI stuff
     public Text currentLevelIndex;
@@ -16,45 +16,43 @@ public class GameManager : MonoBehaviour
     public int nrEnemiesInLevelLeft;
     public GameObject UnitContainer;
     public GameObject LifeContainer;
+    public Button victory;
 
     public Level currentLevel;
     public int Gold{set; get;}
     public int Life{set; get;}
-    private float startTime;
+    private int startTime;
     private void Start()
     {
         Instance = this;
         Life = 5;
 
         currentLevel = DataHelper.Instance.Levels[DataHelper.Instance.CurrentLevel];
+
         Gold = currentLevel.StartingGold;
         // Gold = 40; // hardcoded; needs to be an attribute of Level
-        nrEnemiesInLevel = currentLevel.enemies.Count+1;
-        nrEnemiesInLevelLeft = -1;
+
+
+        nrEnemiesInLevel = currentLevel.enemies.Count; //needs to be modified or taken out
+        nrEnemiesInLevelLeft = -1;                       //
+
+
         // UI
         currentLevelIndex.text = currentLevel.LevelName;
         
-        UnlockUnits();
+        //UnlockUnits();
         UpdateGoldText();
         UpdateLivesUI();
         UpdateEnemiesText();
 
-        startTime = Time.time;
-        Invoke("Hide", 2f);
-        InvokeRepeating("Timer", 1f, 1f);
+        startTime = (int)Time.time;
+        Invoke("Hide", 2f);//deletes current level text
+
+        InvokeRepeating("Timer", 1f, 1f);//does something every second
     }
     private void Update()
     {
-        float gameDuration = Time.time - startTime;    
-        for (int i= 0;i < currentLevel.enemies.Count;i++)// spanws units at given time
-        {
-            if (currentLevel.enemies[i].time < gameDuration)
-            {
-                GamePlay.Instance.SpawnEnemy(currentLevel.enemies[i].index, currentLevel.enemies[i].laneIndex);
-                currentLevel.enemies.Remove(currentLevel.enemies[i]);
-            }
-        }
-
+        
     }
     private void UnlockUnits()
     {
@@ -68,7 +66,7 @@ public class GameManager : MonoBehaviour
         }*/ //nu ii necesar
     }
     public void ToMenu()
-    {
+    {        
         SceneManager.LoadScene("Main");
     }
 
@@ -78,10 +76,22 @@ public class GameManager : MonoBehaviour
     }
 
     public void Timer()
-    {       
-         Gold++;
+    {
+        int gameDuration = (int)Time.time - startTime;
+
+        for (int i = 0; i < currentLevel.enemies.Count; i++)// spanws units at given time
+        {
+
+            if (currentLevel.enemies[i].time == gameDuration)
+            {
+                GamePlay.Instance.SpawnEnemy(currentLevel.enemies[i].index, currentLevel.enemies[i].laneIndex);
+                //currentLevel.enemies.Remove(currentLevel.enemies[i]);               
+            }
+        }
+        Gold++;
          goldAmountText.text = Gold.ToString();       
     }
+    
     public void Hide()
     {
         Destroy(currentLevelIndex);
@@ -111,6 +121,8 @@ public class GameManager : MonoBehaviour
         nrEnemiesInLevelLeft++;
         enemies.text= nrEnemiesInLevelLeft.ToString()+"/" + nrEnemiesInLevel.ToString();
     }
+
+    
     public void RemoveLife()
     {
         Life--;
@@ -120,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     public void Death()
     {
-        SceneManager.LoadScene("Menu"); // to be replaced with Lose Scene
+        SceneManager.LoadScene("Levels"); // to be replaced with Lose Scene
     }
 
     public void Victory()
@@ -133,6 +145,7 @@ public class GameManager : MonoBehaviour
         }
         DataHelper.Instance.UnlockedLevels.Set(nextLevel, true);
         DataHelper.Instance.Save();
-        SceneManager.LoadScene("Levels");
+        if(nrEnemiesInLevelLeft== nrEnemiesInLevel)
+            victory.gameObject.SetActive(true);
     }
 }
