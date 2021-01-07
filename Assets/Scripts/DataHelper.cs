@@ -24,7 +24,7 @@ public class DataHelper : MonoBehaviour
         Load();
         Save();
 
-        SceneManager.LoadScene("Menu"); 
+        //SceneManager.LoadScene("Menu"); 
         //CurrentLevel = 1; // hardcoded; to be changed
     }
 
@@ -69,5 +69,9 @@ public class DataHelper : MonoBehaviour
         {
             Levels.Add(new Level(s));
         }
+    }
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

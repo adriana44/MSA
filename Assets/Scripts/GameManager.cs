@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     }
     public void ToMenu()
     {        
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Menu");
     }
 
     public void UpdateGoldText()

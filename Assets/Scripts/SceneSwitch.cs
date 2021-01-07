@@ -4,8 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneSwitch : MonoBehaviour
 {
-    public void playGame()
+    public void Back()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Menu");
+    }
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 }
