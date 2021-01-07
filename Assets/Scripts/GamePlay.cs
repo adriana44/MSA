@@ -158,7 +158,12 @@ public class GamePlay : MonoBehaviour
         GameManager.Instance.UpdateEnemiesText();
         if(activeEnemies.Count==0)
         {
-                GameManager.Instance.Victory();             
+            if(GameManager.Instance.Life > 0)
+                GameManager.Instance.Victory();
+            else
+            {
+                GameManager.Instance.Death();
+            }             
         }
         // Create some sort of effect?
         // Play sound effect?
